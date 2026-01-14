@@ -45,7 +45,7 @@ weather-news-app/
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/nlusn/web-backend/tree/e37d0950162393cfd741f22b6ee765329b08770c/assignment-2-back>
 cd weather-news-app
 ```
 
@@ -98,3 +98,4 @@ Get /api/weather?city=<CITY_NAME>
 
 
 This project is open-source and free to use.
+
