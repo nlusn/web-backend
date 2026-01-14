@@ -73,8 +73,7 @@ http://localhost:3000
 ```
 3. Enter a city and get its news and values about weather
 
-## API will look like this
-
+## API ENDPOINT
 Get /api/weather?city=<CITY_NAME>
 
 ```bash
@@ -96,5 +95,6 @@ Get /api/weather?city=<CITY_NAME>
 
 
 ## License
+
 
 This project is open-source and free to use.
