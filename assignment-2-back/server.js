@@ -1,20 +1,20 @@
-// Step 3a: Import modules
+//Import modules
 const express = require("express");
 const axios = require("axios");
 
-// Step 3b: Create server
+//Create server
 const app = express();
 const PORT = 3000;
 
-// Step 3c: Hardcode your API keys
+//Storing weather and news api in the variables
 const OPENWEATHER_API_KEY = "d7784113ef29e6690086ebaca882dd50";
 const NEWS_API_KEY = "2d733a406989445089768af3427b07c7";
 
-// Step 3d: Serve static files from "public" folder
+//Serve static files from "public" folder
 app.use(express.json()); // parse JSON if needed
 app.use(express.static("public")); // serve index.html automatically
 
-// Step 3e: API endpoint for weather + news
+//API endpoint for weather + news
 app.get("/api/weather", async (req, res) => {
   const city = req.query.city; // get city from URL: /api/weather?city=London
   if (!city) return res.status(400).json({ error: "City required" });
@@ -34,7 +34,7 @@ app.get("/api/weather", async (req, res) => {
 
     const w = weatherRes.data;
 
-    // Call News API (extra feature)
+    // Call News API
     const newsRes = await axios.get("https://newsapi.org/v2/top-headlines", {
       params: {
         q: city,
@@ -43,7 +43,7 @@ app.get("/api/weather", async (req, res) => {
       },
     });
 
-    // Prepare clean JSON to send to frontend
+    // Preparing JSON to send to frontend
     res.json({
       temperature: w.main.temp,
       feelsLike: w.main.feels_like,
@@ -63,7 +63,8 @@ app.get("/api/weather", async (req, res) => {
   }
 });
 
-// Step 3f: Start server
+//Start server
 app.listen(PORT, () =>
   console.log(`Server running → http://localhost:${PORT}`)
 );
+
