@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars Project</title>
+</head>
+<body>
+    <h1>Cars Project</h1>
+
+    <!-- Section to add a new car -->
+    <h2>Add a New Car</h2>
+    <input id="name" placeholder="Car Name" />
+    <input id="brand" placeholder="Brand" />
+    <input id="price" placeholder="Price" type="number" />
+    <input id="year" placeholder="Year" type="number" />
+    <button onclick="addCar()">Add Car</button>
+
+    <hr>
+
+    <!-- Section to show all cars -->
+    <h2>All Cars</h2>
+    <button onclick="getAllCars()">Refresh List</button>
+    <ul id="carsList"></ul>
+
+    <script>
+        const baseUrl = "http://localhost:3000";
+
+        // Function to add a car
+        async function addCar() {
+            const name = document.getElementById('name').value;
+            const brand = document.getElementById('brand').value;
+            const price = document.getElementById('price').value;
+            const year = document.getElementById('year').value;
+
+            const res = await fetch(`${baseUrl}/cars`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, brand, price: Number(price), year: Number(year) })
+            });
+
+            const data = await res.json();
+            console.log(data);
+            getAllCars(); // refresh list
+        }
+
+        // Function to get all cars
+        async function getAllCars() {
+            const res = await fetch(`${baseUrl}/cars`);
+            const cars = await res.json();
+            const carsList = document.getElementById('carsList');
+            carsList.innerHTML = '';
+
+            cars.forEach(car => {
+                const li = document.createElement('li');
+                li.textContent = `${car.name} (${car.brand}) - $${car.price} - Year: ${car.year}`;
+                carsList.appendChild(li);
+            });
+        }
+
+        // Initial load
+        getAllCars();
+    </script>
+</body>
+</html>
